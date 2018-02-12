@@ -1,0 +1,5 @@
+name = Hello
+description = A Simple Module
+package = Example Modules
+core = 7.x
+files[] = Hello.module

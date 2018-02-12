@@ -1,0 +1,6 @@
+;$id: text.info,v 1.0 2014/06/09 12:49:55 Ali Exp $
+name = math work
+description = Example of some math work
+version = VERSION
+core = 7.x
+files[] = mathwork.module

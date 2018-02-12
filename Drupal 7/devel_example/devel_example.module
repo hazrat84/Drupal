@@ -1,0 +1,93 @@
+<?php
+/**
+ * hook_init().
+ */
+
+/*function devel_example_init(){
+    global $user;
+    //print_r($user);
+    //debug($user);
+    //dsm($user);
+    //dsm($user, 'variable 1');
+    //dsm('hello world', 'my string');
+    //kpr($user); // krumo print recursive
+}*/
+
+/**
+ * Implements hook_menu().
+ */
+function devel_example_menu(){
+    
+    $items['welcome.html'] = array(
+       'title' => 'A little magic',
+       'page callback' => 'devel_example_test',
+       'access callback' => 'user_access', // user_access will be called whether the currently login user can access this page or not
+        // if we don't write (the above line) Drupal will call user_access automatically.
+       'access arguments' => array('access content'), // here we pass param to user_access e.g user_access('access content')  
+    );
+    
+    $items['magic/%'] = array( // % is a wildcard character
+        'title' =>  'Even more magical',
+        'page callback' => 'devel_example_extra',
+        'page arguments' => array(1), // % is at position one in url so I put 1 in array, magic is at position 0 
+        'access arguments' => array('access content'),
+        'file' => 'devel_example.extra.inc', // I am going to decalre this page callback in a separate file
+    );
+    
+    $items['user/%/magic'] = array(
+        'title' => 'Magic',
+        'description' => 'Magical magic for users',
+        'page callback' => 'devel_example_user_tab',
+        'page arguments' => array(1),
+        'access callback' => 'user_access',
+        'access arguments' => array('administer users'),
+        'file' => 'devel_example.user.inc',
+        'type' => MENU_LOCAL_TASK,
+    );
+    
+    return $items;
+}
+
+function devel_example_test(){
+    $content = array();
+    
+    // This is a very, very simple page element. it will appear on the page,
+    // but other modules can't customize it and themes can't override its markup.
+    $content['raw_markup'] = array(
+      '#type' => 'markup',
+      '#markup' => '<p>Truly, this is magical!</p>',  
+    );
+    
+    return $content;
+}
+
+/**
+ * Implements hook_permission().
+ */
+
+function devel_example_permission(){
+    return  array(
+        'administer demo module' => array(
+            'title' => t('Administer Demo Module'),
+            'description' => t('Perform administration task for the demo module'),
+        ),
+    );
+}
+
+/**
+ * Implements hook_node_view().
+ */
+
+function devel_example_node_view($node, $view_mode, $langcode){
+    $node->content['demo_field'] = array(
+        '#type' => 'markup',
+        '#markup' => '<p>'.t('This is only a demo').'</p>',
+        '#weight' => -10,
+    );
+    $node->content['demo_list'] = array(
+      '#items' => array('green', 'blue', 'yellow', 'red'),
+      '#theme' => 'item_list',
+      '#weight' => -9,  
+    );
+    //krumo($node);
+}
