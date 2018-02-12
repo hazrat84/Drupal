@@ -21,17 +21,15 @@ use Drupal\Core\Entity\EntityFormBuilderInterface;
  */
 class BookingFormBlock extends BlockBase {
 
-    /**
-    * {@inheritdoc}
-    */
-    public function build() {
-        
-  	$bookinginfo = \Drupal::entityTypeManager()
-  			->getStorage('bookinginfo')
-  			->create(array());
+  	/**
+   	* {@inheritdoc}
+   	*/
+  	public function build() {
+  		$bookinginfo = \Drupal::entityTypeManager()
+  					->getStorage('bookinginfo')
+  					->create(array());
     
     	$form = \Drupal::service('entity.form_builder')->getForm($bookinginfo, 'booking_display');
-        return $form;
-    	
+    	return $form;
    }
 }

@@ -24,7 +24,7 @@ use Drupal\Core\Entity\EntityChangedTrait;
  *   label = @Translation("timeslots entity"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "views_data"   =   "Drupal\views\EntityViewsData",
+ *     "views_data" = "Drupal\views\EntityViewsData",
  *     "list_builder" = "Drupal\timeslots\Entity\Controller\TimeslotsListBuilder",
  *     "form" = {
  *       "add" = "Drupal\timeslots\Form\TimeslotsForm",
@@ -44,7 +44,7 @@ use Drupal\Core\Entity\EntityChangedTrait;
  *     "endtime" = "endtime",
  *     "enddate" = "enddate",
  *     "tutor_id" = "tutor_id",
- *     "repeatslot" = "repeatslot",
+ *     "recurrent" = "recurrent",
  *     "isbooked" = "isbooked",
  *     "created" = "created",
  *     "changed" = "changed",
@@ -104,52 +104,38 @@ class Timeslots extends ContentEntityBase {
     
     // We set display options for the view as well as the form.
     // Users with correct privileges can change the view and edit.
-    $fields['start_date'] = BaseFieldDefinition::create('string')
+
+      $fields['start_date'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Start Date'))
-      ->setDisplayOptions('view', array(
-            'label' => 'above',
-            'type' => 'string',
-            'weight' => 0,
-        ))
-      ->setSettings(
-        array(
-          'default_value' => Null,
-        )
-      )
-      ->setRequired(TRUE)
+      ->setTranslatable(TRUE)
+      ->setSetting('max_length', 255)
       ->setDisplayOptions('form', array(
-          'type' => 'text_textfield',
-          'settings' => array(
+        'type' => 'string_textfield',
+        // Default comment body field has weight 20.
+        'settings' => array(
             'placeholder' => t('2017-05-25')
           ),
-          'id' => 'startdate',
-          'weight' => 0,
+        'weight' => 0,
       ))
-      ->setDisplayConfigurable('form', TRUE)
-      ->setDisplayConfigurable('view', TRUE);
+      ->setDisplayConfigurable('form', TRUE);
 
-    $fields['start_time'] = BaseFieldDefinition::create('string')
+      $fields['start_time'] = BaseFieldDefinition::create('string')
       ->setLabel(t('Start Time'))
-      ->setDisplayOptions('view', array(
-            'label' => 'above',
-            'type' => 'string',
-            'weight' => 0,
-        ))
-      //->addConstraint('Timeslots_Duplication')
-      ->setRequired(TRUE)
-        ->setDisplayOptions('form', array(
-            'type' => 'text_textfield',
-            'settings' => array(
-              'placeholder' => t('15:00')
-            ),
-            'weight' => 0,
-        ))
-        ->setDisplayConfigurable('form', TRUE)
-        ->setDisplayConfigurable('view', TRUE);
+      ->setTranslatable(TRUE)
+      ->setSetting('max_length', 255)
+      ->setDisplayOptions('form', array(
+        'type' => 'string_textfield',
+        // Default comment body field has weight 20.
+        'settings' => array(
+            'placeholder' => t('15:00')
+          ),
+        'weight' => 0,
+      ))
+      ->setDisplayConfigurable('form', TRUE);
 
     $fields['end_time'] = BaseFieldDefinition::create('string')
       ->setLabel(t('End Time'))
-      //->setDescription(t('End Time of a day.'))
+      ->setDescription(t('End Time of a day.'))
       ->setDisplayOptions('view', array(
             'label' => 'above',
             'type' => 'integer',
@@ -157,7 +143,7 @@ class Timeslots extends ContentEntityBase {
         ))
        ->setRequired(TRUE)
         ->setDisplayOptions('form', array(
-            'type' => 'text_textfield',
+            'type' => 'string_textfield',
             'settings' => array(
               'placeholder' => t('17:00')
             ),
@@ -166,13 +152,14 @@ class Timeslots extends ContentEntityBase {
         ->setDisplayConfigurable('form', TRUE)
         ->setDisplayConfigurable('view', TRUE);
 
-    $fields['repeat_slot'] = BaseFieldDefinition::create('list_string')
+    $fields['recurrent'] = BaseFieldDefinition::create('list_string')
         ->setLabel(t('Select Repeat'))
+        ->setDescription(t('Select Repeat type'))
         ->setSettings(array(
           'allowed_values' => array(
             '0' => 'No Repeat',
             '1' => 'Everyday',
-            '2' => 'Business Days',
+            '2' => 'Business Day',
             '3' => 'Weekends',
           ),
         ))
@@ -191,7 +178,7 @@ class Timeslots extends ContentEntityBase {
 
     $fields['end_date'] = BaseFieldDefinition::create('string')
       ->setLabel(t('End Date'))
-      //->setDescription(t('Ending Date.'))
+      ->setDescription(t('Ending Date.'))
       ->setDisplayOptions('view', array(
             'label' => 'above',
             'type' => 'string',
@@ -226,7 +213,7 @@ class Timeslots extends ContentEntityBase {
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-     $fields['is_booked'] = BaseFieldDefinition::create('boolean')
+     $fields['isbooked'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('isbooked'))
       ->setDescription(t('Whether or not the node is highlighted.'));
 
@@ -240,64 +227,5 @@ class Timeslots extends ContentEntityBase {
 
     return $fields;
   }
-  
-    function converToTz($time=null, $toTz='',$fromTz='')
-    {
-        
-        /*$fromTz = ($fromTz != '') ? $fromTz : 'UTC';
-        $toTz = ($toTz != '') ? $toTz : drupal_get_user_timezone();
-        $date = new \DateTime($time, new \DateTimeZone($fromTz));
-        $date->setTimezone(new \DateTimeZone($toTz));
-        return $date;*/
-        
-        $fromTz = ($fromTz != '') ? $fromTz : 'UTC';
-        $toTz = ($toTz != '') ? $toTz : drupal_get_user_timezone();
-        $date = new \DateTime($time, new \DateTimeZone($fromTz));
-        $date->setTimezone(new \DateTimeZone($toTz));
-        
-        return $date;
-    }
-    
-    public function getID()
-    {
-        return $this->get('id')->value;
-    }
-    
-    public function getBookingStatus()
-    {
-        return $this->get('is_booked')->value;
-    }
-    
-    public function getStartDate()
-    {
-        return $dateTime = strtoupper(date('D d. M. Y', $this->get('start_time')->value));
-        //$startDate = $this->converToTz($dateTime);
-        //return strtoupper($startDate->format('D d. M. Y'));
-        //return $dateTime = date('D d. M. Y', $this->get('start_time')->value)
-    }
-
-    public function getStartTime()
-    {
-        /*$system_date = \Drupal::config('system.date');
-        $default_timezone = $system_date->get('timezone.default');
-        echo date_default_timezone_get();*/
-        
-        if(drupal_get_user_timezone() == 'Europe/London' || \Drupal::service('timezone_service.has_word')->hasWord("America", drupal_get_user_timezone()) == 1){
-            return $service = \Drupal::service('timezone_service.has_word')->time24to12(date('H', $this->get('start_time')->value), date('i', $this->get('start_time')->value));
-        }
-        
-        return date('H:i', $this->get('start_time')->value);
-    }
-    
-    public function getEndTime()
-    {
-        /*$dateTime = date('Y-m-d H:i:s', $this->get('end_time')->value);
-        $startDate = $this->converToTz($dateTime);
-        return $startDate->format('H:i');*/
-        if(drupal_get_user_timezone() == 'Europe/London' || \Drupal::service('timezone_service.has_word')->hasWord("America", drupal_get_user_timezone()) == 1){
-            return $service = \Drupal::service('timezone_service.has_word')->time24to12(date('H', $this->get('end_time')->value), date('i', $this->get('end_time')->value));
-        }
-        return date('H:i', $this->get('end_time')->value);//$startDate->format('H:i');
-    }
 
 }

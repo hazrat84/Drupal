@@ -10,9 +10,9 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Entity\ContentEntityBase;
 use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\user\UserInterface;
 use Drupal\Core\Entity\EntityChangedTrait;
-use Drupal\node\Entity\Node;
-use Drupal\user\Entity\User;
+
 
 /**
  * Defines the ContentEntityExample entity.
@@ -25,7 +25,6 @@ use Drupal\user\Entity\User;
  *   label = @Translation("booking entity"),
  *   handlers = {
  *     "view_builder" = "Drupal\Core\Entity\EntityViewBuilder",
- *     "views_data"   =   "Drupal\views\EntityViewsData",
  *   },
  *   list_cache_contexts = { "user" },
  *   base_table = "bookinginfo",
@@ -69,7 +68,7 @@ class BookingInfo extends ContentEntityBase {
    * Field name, type and size determine the table structure.
    *
    * In addition, we can define how the field and its content can be manipulated
-   * in the GUI. The behavior of the widgets used can be determined here.
+   * in the GUI. The behaviour of the widgets used can be determined here.
    */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type) {
 
@@ -87,13 +86,14 @@ class BookingInfo extends ContentEntityBase {
       ->setDescription(t('The UUID of the Booking entity.'))
       ->setReadOnly(TRUE);
 
-    $fields['number_of_sessions'] = BaseFieldDefinition::create('list_string') // number of sessions
+    $fields['amount_session'] = BaseFieldDefinition::create('list_string')
         ->setLabel(t('Set amount of sessions'))
-        
+        ->setDescription(t('Number of Sessions'))
         ->setSettings(array(
           'allowed_values' => array(
             '1' => '1',
             '2' => '2',
+            '3' => '3',
           ),
         ))
         ->setRequired(TRUE)
@@ -108,14 +108,13 @@ class BookingInfo extends ContentEntityBase {
         ))
         ->setDisplayConfigurable('form', TRUE)
         ->setDisplayConfigurable('view', TRUE);
-    
-    
-    $userLanguages = array();
-    
+
+    $age = array("da"=>"Danish", "en"=>"English");
+
     $fields['available_language'] = BaseFieldDefinition::create('list_string')
         ->setLabel(t('Available Language'))
-        ->setDescription(t(''))
-        ->setSetting('allowed_values', $userLanguages)
+        ->setDescription(t('Number of Sessions'))
+        ->setSetting('allowed_values', $age)
         ->setRequired(TRUE)
         ->setDisplayOptions('view', array(
             'label' => 'above',
@@ -130,7 +129,7 @@ class BookingInfo extends ContentEntityBase {
         ->setDisplayConfigurable('view', TRUE);
 
 
-      $fields['session_amount'] = BaseFieldDefinition::create('string') // Session total Amount = quantity X price
+      $fields['session_amount'] = BaseFieldDefinition::create('string')
         ->setLabel(t('Session'))
         ->setDisplayOptions('view', array(
             'label' => 'above',
@@ -186,52 +185,12 @@ class BookingInfo extends ContentEntityBase {
         'weight' => -3,
       ))
       ->setDisplayConfigurable('view', TRUE);
-    
-    $fields['session_id'] = BaseFieldDefinition::create('integer')
-      ->setLabel(t('Session ID'))
-      ->setDescription(t('Session ID '))
-      ->setSettings(array(
-        'max_length' => 10,
-        'text_processing' => 0,
-      ))
-      ->setDefaultValue(0);
-    
-    $fields['timeslot_id'] = BaseFieldDefinition::create('integer') // Timeslot id
-      ->setLabel(t('Timeslot ID'))
-      ->setDescription(t('Timeslot ID '))
-      ->setSettings(array(
-        'max_length' => 10,
-        'text_processing' => 0,
-      ))
-      ->setDefaultValue(0);
-    
-    $fields['is_accepted'] = BaseFieldDefinition::create('boolean')
-      ->setLabel(t('isaccepted'))
-      ->setDescription(t('will show that this booking is accepted or not'));
-    
-    $fields['is_canceled'] = BaseFieldDefinition::create('boolean')
-      ->setLabel(t('iscanceled'))
-      ->setDescription(t('will show that this booking is canceled or not'));
 
     $fields['created'] = BaseFieldDefinition::create('created')
       ->setLabel(t('Created'))
       ->setDescription(t('The time that the entity was created.'));
 
     return $fields;
-  }
-  
-  /**
-   * Default value callback for 'nid' base field definition.
-   *
-   * @see ::baseFieldDefinitions()
-   *
-   * @return array
-   *   An array of default values.
-   */
-  
-  public static function getCurrentNodeId(){
-      $node = \Drupal::routeMatch()->getParameter('node');
-      return $node->id();
   }
 
 }

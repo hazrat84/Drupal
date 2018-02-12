@@ -26,7 +26,7 @@ entity.timeslots.timeslot_add:
   defaults:
   # Calls the form.add controller, defined in the timeslots entity.
     _entity_form: timeslots.add
-    _title: 'Create a Time Slot'
+    _title: 'Add Timeslot'
   requirements:
     _entity_create_access: 'timeslots'
 
@@ -47,13 +47,3 @@ entity.timeslots.delete_form:
     _title: 'Delete timeslot'
   requirements:
     _entity_access: 'timeslots.delete'
-    
-timeslots.delete:
-  path: '/timeslots/multipledelete'
-  defaults:
-    _controller: '\Drupal\timeslots\Controller\MultipleDeleteController::multipleDeleteAction'
-    _title: 'Delete timeslot'
-  requirements:
-    _permission: 'access content'
-    
-    

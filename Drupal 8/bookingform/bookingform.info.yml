@@ -6,6 +6,3 @@ dependencies:
 - node
 - block
 type: module
-
-libraries:
-    - peopleteachme/global-css

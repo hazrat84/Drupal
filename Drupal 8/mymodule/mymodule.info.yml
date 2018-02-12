@@ -1,0 +1,5 @@
+name: My Module
+type: module
+description: 'This is my first custom module'
+core: '8.x'
+package: custom

@@ -79,8 +79,8 @@ class TimeslotsListBuilder extends EntityListBuilder {
     $userSubmittedTimezoneString = drupal_get_user_timezone();
     $row['Id'] = $entity->id();
 
-    $starting_time = date('Y-m-d H:i:s', $entity->starttime->value);
-    $ending_time = date('Y-m-d H:i:s', $entity->endtime->value);
+    $starting_time = date('Y-m-d H:i:s', $entity->start_time->value);
+    $ending_time = date('Y-m-d H:i:s', $entity->end_time->value);
 
     $row['starttime'] = date('Y-m-d H:i:s a', $this->converToTz($starting_time, $userSubmittedTimezoneString, "UTC"));
     $row['endtime'] = date('Y-m-d H:i:s a', $this->converToTz($ending_time, $userSubmittedTimezoneString, "UTC"));

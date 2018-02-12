@@ -32,20 +32,20 @@ public function buildForm(array $form, FormStateInterface $form_state, $options 
 	$form['our_checkbox'] = [ 
 		'#type' => 'checkbox', 
 		'#title' => $this->t('I Agree: modal forms are awesome!'), 
-		'#required' => TRUE,
+		'#required' => TRUE, 
 	]; 
 
 	$form['actions'] = array('#type' => 'actions'); 
 	$form['actions']['send'] = [ 
 		'#type' => 'submit', 
-		'#value' => $this->t('Save'), 
+		'#value' => $this->t('Submit modal form'), 
 		'#attributes' => [ 
 			'class' => [ 
 				'use-ajax', 
 			], 
 		], 
 		'#ajax' => [ 
-			'callback' => [$this, ''],  // submitModalFormAjax
+			'callback' => [$this, 'submitModalFormAjax'], 
 			'event' => 'click', 
 		], 
 	]; 
@@ -58,22 +58,12 @@ public function buildForm(array $form, FormStateInterface $form_state, $options 
 
 	public function submitModalFormAjax(array $form, FormStateInterface $form_state) { 
 		$response = new AjaxResponse(); 
-		$test = 'test';
+
 		// If there are any form errors, re-display the form. 
-		$text = 'Please Check the Checkbox';
 		if ($form_state->hasAnyErrors()) { 
 			$response->addCommand(new ReplaceCommand('#modal_example_form', $form)); 
 		} else { 
-// $form_state->getValue('our_checkbox')
-			if ($test == 'test') {
-     			$text = 'Please Check the Checkbox';
-     			$response->addCommand(new HtmlCommand('#modal_example_form', $text));
-     			$response->addCommand(new ReplaceCommand('#modal_example_form', $form)); 
-   			} else {
-     			$response->addCommand(new OpenModalDialogCommand("Success!", 'The modal form has been submitted.', ['width' => 400])); 
-   			}
-   			
-			
+			$response->addCommand(new OpenModalDialogCommand("Success!", 'The modal form has been submitted.', ['width' => 800])); 
 		} 
 
 		return $response; 
@@ -83,26 +73,13 @@ public function buildForm(array $form, FormStateInterface $form_state, $options 
 	* {@inheritdoc} 
 	*/ 
 
-	public function validateForm(array &$form, FormStateInterface $form_state) {
-		$response = new AjaxResponse();
-		$text = 'Please Check the Checkbox';
-
-		if($form_state->getValue('our_checkbox') == ''){
-			$response->addCommand(new HtmlCommand('#modal_example_form', $text));
-		}else{
-
-		}
-
-		return $response; 
-	} 
+	public function validateForm(array &$form, FormStateInterface $form_state) {} 
 
 	/** 
 	* {@inheritdoc} 
 	*/ 
 
-	public function submitForm(array &$form, FormStateInterface $form_state) {
-		drupal_set_message('Nothing Submitted. Just an Example.'.$form_state->getValue('our_checkbox'));
-	} 
+	public function submitForm(array &$form, FormStateInterface $form_state) {} 
 	/** 
 	* Gets the configuration names that will be editable. 
 	* 

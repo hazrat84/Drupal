@@ -43,6 +43,7 @@ class StripeApiService {
     $this->entityTypeManager = $entity_type_manager;
     
     $this->key = $key;
+    
     Stripe::setApiKey($this->getApiKey());
   }
 

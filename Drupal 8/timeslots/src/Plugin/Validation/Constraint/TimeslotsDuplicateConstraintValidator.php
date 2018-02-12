@@ -28,7 +28,7 @@ class TimeslotsDuplicateConstraintValidator extends ConstraintValidator {
     $user_id = \Drupal::currentUser()->id();
     $userSubmittedTimezoneString = drupal_get_user_timezone(); // get current user timezone
 
-    $entity    = $items->getEntity();
+    $entity     = $items->getEntity();
     $start_date = $entity->startdate->value;
     $start_time = $entity->starttime->value;
     $end_date   = $entity->enddate->value;

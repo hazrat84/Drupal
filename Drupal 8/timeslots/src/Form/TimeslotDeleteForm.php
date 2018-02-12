@@ -31,7 +31,7 @@ class TimeslotDeleteForm extends ContentEntityConfirmFormBase {
    * If the delete command is canceled, return to the contact list.
    */
   public function getCancelUrl() {
-    return new Url('view.timeslot_listing.timeslots_listing');
+    return new Url('entity.timeslots.collection');
   }
 
   /**
@@ -54,8 +54,8 @@ class TimeslotDeleteForm extends ContentEntityConfirmFormBase {
       array(
         '%title' => $this->entity->label(),
       ));
-    // Redirect to timeslot list after delete.
-    $form_state->setRedirect('view.timeslot_listing.timeslots_listing');
+    // Redirect to term list after delete.
+    $form_state->setRedirect('entity.timeslots.collection');
   }
 
 }

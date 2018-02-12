@@ -1,0 +1,80 @@
+/**
+  * @file
+  * Styling for the SiteAttention module.
+*/
+
+dl {
+  margin-bottom:50px;
+  width: 40%;
+  border: solid 1px;
+  border-radius: 10px;
+  padding: 15px;
+  display: inline-block;
+  vertical-align: top;
+}
+dl dt {
+    color:#000;
+    float:left; 
+    font-weight:bold; 
+    margin-right:10px; 
+    padding:5px;  
+    width:100px; 
+}
+dl dd {
+    margin:2px 0; 
+    padding:5px 0;
+    margin-bottom: 0px !important;
+}
+input[type="submit"]{
+  margin: 0;
+}
+dl.right {
+  position: absolute;
+  right: 58px;
+}
+dl.right img{
+  width: 100%;
+}
+dl.right a{
+  line-height: 30px;
+  font-size: 25px;
+}
+
+@media screen and (max-width:980px){
+  dl{
+    width: 45%;
+  }
+  dl.right {
+    width: 26%;
+    right: 48px;
+  }
+  dl.right a{
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width:872px){
+  dl{width: 92%;}
+  dl.right{width: 92%; position: initial; }
+  dl.right a{
+    font-size: 20px;
+    line-height: 25px;
+  }
+}
+
+@media screen and (max-width:372px){
+  dl dt{
+    width: 80px;
+  }
+}
+
+@media screen and (max-width:332px){
+  dl{width: 87%;}
+  dl.right{width: 87%;}
+  details#edit-sa-customer-info > .details-wrapper {
+    padding: 5px;
+  }
+  dl dt{
+    width: 55px;
+  }
+}

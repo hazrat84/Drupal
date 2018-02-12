@@ -1,0 +1,37 @@
+siteattention.settings.css:
+  version: VERSION
+  css:
+    layout:
+      css/siteattention.admin.css: {}
+
+siteattention.settings.js:
+  version: VERSION
+  js:
+    js/setting.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+
+siteattention.SiteAttentionDemoCMSModule.js:
+  version: VERSION
+  js:
+    js/SiteAttentionDemoCMSModule.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+
+siteattention.SiteAttentionModule.js:
+  version: VERSION
+  js:
+    js/SiteAttentionModule.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+
+siteattention.script.js:
+  version: VERSION
+  js:
+    js/script.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings

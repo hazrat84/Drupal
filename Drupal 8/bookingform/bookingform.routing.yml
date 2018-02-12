@@ -1,47 +1,7 @@
-bookingform.book_date_time_page:
-  path: '/booking/timeslot'
+bookingform.form:
+  path: '/bookingform/form'
   defaults:
-    _controller: '\Drupal\bookingform\Controller\TimeslotPeriodController::createTimeslotPeriod'
-    _title: 'Select date and time'
-  requirements:
-    _permission: 'access content'
-    
-bookingform.book_thank_page:
-  path: '/booking/thankyou'
-  defaults:
-    _controller: '\Drupal\bookingform\Controller\ThankyouController::Thankyoupage'
-    _title: 'THANK YOU'
-  requirements:
-    _permission: 'access content'
-    
-bookingform.gotopayment:
-  path: '/booking/gotopayment'
-  defaults:
-    _controller: '\Drupal\bookingform\Controller\GotoPayment::gotoPaymentPage'
-    _title: ''
-  requirements:
-    _permission: 'access content'
-    
-bookingform.cancelbooking:
-  path: '/cancel/booking'
-  defaults:
-    _controller: '\Drupal\bookingform\Controller\BookingCancellationController::CancelBookingPage'
-    _title: ''
-  requirements:
-    _permission: 'access content'
-    
-bookingform.gotopayment_checkout:
-  path: '/booking/gotopayment/checkout'
-  defaults:
-    _controller: '\Drupal\bookingform\Controller\GotoPayment::gotoPaymentCheckoutPage'
-    _title: ''
-  requirements:
-    _permission: 'access content'
-    
-bookingform.bookingresponse_checkout:
-  path: '/booking/response'
-  defaults:
-    _controller: '\Drupal\bookingform\Controller\BookingResponseController::BookingResponsePage'
-    _title: ''
+    _form: '\Drupal\bookingform\Form\BookingForm'
+    _title: 'Booking Form'
   requirements:
     _permission: 'access content'
