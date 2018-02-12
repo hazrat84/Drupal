@@ -1,0 +1,93 @@
+<div class="container-fluid padding-top">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-6 col-xs-12"> <img src="{{ session_info['tutor_image'] }}" class="tutor_timeperiod_image" alt="image"> </div>
+      <div class="col-md-5 col-sm-6 padding-bottom col-xs-12">
+        <div class="contentSectionSession booking-accepted left-align zero">
+          <ul>
+            <li> <span class="headingSpan"><strong>Session date:</strong></span> <span>{{ session_info['session_date'] }}</span> </li>
+            <li> <span class="headingSpan"><strong>Session start:</strong></span> <span>{{ session_info['start_time'] }} - {{ session_info['end_time'] }}</span> </li>
+            <li> <span class="headingSpan"><strong>Order nr.:</strong></span> <span>{{ session_info['booking_id'] }}</span> </li>
+            <li> <span class="headingSpan"><strong>Order date:</strong></span> <span>{{ session_info['booking_date']|date("d. F, Y") }}</span> </li>
+            <li> <span class="headingSpan"><strong>Tutor: </strong></span> <span>{{ session_info['tutor_name'] }}</span> </li>
+            <li> <span class="headingSpan"><strong>Product: </strong></span> <span>{{ session_info['session_title'] }}</span> </li>
+            <li> <span class="headingSpan"><strong>Session time:</strong></span> <span>{{ session_info['session_time'] }} minutes</span> </li>
+            <li> <span class="headingSpan"><strong>Tutor level:</strong></span> <span>{{ session_info['tutor_level'] }}</span> </li>
+            <li> <span class="headingSpan"><strong>Language:</strong></span> <span>{{ session_info['language'] }}</span> </li>
+          </ul>
+        </div>
+      </div>
+        <div class="col-md-4 col-sm-12 col-xs-12">
+            <div class="bookingreceipt font-20 no-border">
+                <span class="fee text-center">Additional small Transaction Fee is now added</span>
+                <ul class="border">
+                    <li><span class="pull-left">{{ session_info['number_of_sessions'] }} Session x {{ session_info['session_price'] }} US$</span><span class="pull-right">{{ (session_info['number_of_sessions'] * session_info['session_price']) | number_format(2, '.', ',')  }} US$</span></li>
+                    <li><span class="pull-left">Commission Fee</span><span class="pull-right">{{ session_info['session_commission'] | number_format(2, '.', ',') }} US$</span></li>
+                    <li><span class="pull-left">{{ session_info['session_time']  }} min.datacharge</span><span class="pull-right">{{ session_info['session_time'] * 0.01 }} US$</span></li>
+                    <li><span class="pull-left"><strong>Current total</strong></span><span class="pull-right"><strong>{{ session_info['total_price'] | number_format(2, '.', ',') }} US$</strong></span></li>
+                    <li><span class="pull-left">+Transaction fee</span><span class="pull-right">{{ (session_info['total_price'] * 2.9/100 + 0.3) | number_format(2, '.', ',') }} US$</span></li>
+                    <li class="padding"><span class="pull-left"><strong>Total price</strong></span><span class="pull-right"><strong>{{ (session_info['total_price'] + (session_info['total_price'] * 2.9/100) + 0.3) | number_format(2, '.', ',') }} US$</strong></span></li>
+                    <div class="text-center">
+                        <img src="/{{ directory }}/images/visa.png" alt="img">
+                        <img src="/{{ directory }}/images/card.png" alt="img">
+                        <img src="/{{ directory }}/images/express.png" alt="img">
+                        <img src="/{{ directory }}/images/discover.png" alt="img">
+                        <span class="stripe">Payments are powered by <strong>stripe</strong></span>
+                    </div>
+                </ul>
+                <div class="form-group check-box padding-top update-section blackCheckBox">
+                  <input type="checkbox" name="accept_payment_terms" id="accept_payment_terms" value="value">
+                  <label>Accept Payment Terms</label>
+                </div>
+            </div>
+        <!--<div class="bookingreceipt extra-padding font-20">
+          <ul>
+            <li><span class="pull-left">{{ session_info['number_of_sessions'] }} Session x {{ session_info['session_price'] }} US$</span><span class="pull-right">{{ (session_info['number_of_sessions'] * session_info['session_price']) | number_format(2, '.', ',')  }} US$</span></li>
+            <li><span class="pull-left">Commission Fee</span><span class="pull-right">{{ session_info['session_commission'] | number_format(2, '.', ',') }} US$</span></li>
+            <li><span class="pull-left">{{ session_info['session_time']  }} min. datacharge</span><span class="pull-right">{{ session_info['session_time'] * 0.01 }} US$</span></li>
+            <li><span class="pull-left"><strong>Total price</strong></span><span class="pull-right"><strong>{{ session_info['total_price'] | number_format(2, '.', ',') }} US$</strong></span></li>
+          </ul>
+          <div class="form-group check-box padding-top blackCheckBox">
+            <input type="checkbox" name="accept_payment_terms" id="accept_payment_terms" value="value">
+            <label>Accept Payment Terms</label>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid btnSection fixed-btnsection">
+    
+    <div class="pull-right col-sm-8 col-xs-12">
+    
+      <a class="btn btn-danger create-time-width" id="cancel_btn">Cancel booking</a>
+     <input type="hidden" name="booking_id" id="booking_id" value="{{ session_info['booking_uuid'] }}" />
+       <div class="outer-btn">
+           
+            <form id="pay_with_cards" action="/booking/gotopayment/checkout" method="POST">
+                <script
+                  src="https://checkout.stripe.com/checkout.js" class="stripe-button orangeBtn margin-auto"
+                  data-key="pk_test_FmxykTqMv6v0DXTgPVDbMyXa"
+                  data-amount="{{ (session_info['total_price'] + (session_info['total_price'] * 2.9/100) + 0.3) * 100 | number_format(2, '.', ',') }}"
+                  data-name="PeopleTeachMe"
+                  data-email="{{ session_info['student_mail'] }}"
+                  data-description="Communicate with real people"
+                  data-image="/{{ directory }}/images/risponsiveLogo.png"
+                  data-locale="auto"
+                  data-label="Go to payment"
+                  data-zip-code="false"
+                  data-currency="USD">
+                </script>
+            </form> 
+           
+        <!-- <button class="btn btn-danger orangeBtn pull-right">Go to payment</button> 
+        <span>Additional small Transaction FEE will be added.</span> -->
+        
+        {{ attach_library('bookingform/bookingform.calculate.js') }}
+      </div>
+      
+      
+    </div>
+    {{ login_link }}
+</div>

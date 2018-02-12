@@ -1,0 +1,9 @@
+name: Stripe Payment API
+description: This module Provides an integration to use the Stripe API library
+core: 8.x
+type: module
+package: Custom
+configure: stripe_payment.admin
+dependencies:
+    - key
+

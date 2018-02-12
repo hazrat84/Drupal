@@ -1,0 +1,22 @@
+langcode: da
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_session_price
+    - node.type.session
+id: node.session.field_session_price
+field_name: field_session_price
+entity_type: node
+bundle: session
+label: 'Price (US $)'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  min: null
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: float

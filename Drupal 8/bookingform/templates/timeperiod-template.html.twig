@@ -1,0 +1,60 @@
+<div class="container-fluid padding-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <img src="{{ tutor_img }}" alt="image" class="tutor_timeperiod_image">
+                <div class="session-length">
+                    <span>Session length {{ session_length }} minutes</span><br />
+                    <span>Between each Time Slot a {{ recess_time }} minute interval is included</span>
+                </div>
+            </div>
+            
+            <div class="mainContent col-sm-9 col-xs-12">
+                <div class="mainContent text-center col-sm-12  col-xs-12">
+                    {% for startdate, time_slices in time_periods %}
+                        <div class="time-section  grey-color">
+                            <h4>{{ startdate }}</h4>
+                            <ul>
+                                {% for key, value in time_slices %}
+                                    <li onclick="Drupal.behaviors.bookingform.getTimePeriodsInfo({{ value.timestamp_start}}, {{value.timestamp_end}}, {{value.timeslot_id}}, this )">
+                                        <span>{{ value.start_time }} - {{ value.end_time }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endfor %}
+                    
+                    {% if timeslot_count == 0 %}
+                        <h2 class="text-center padding-top2 marginTop">No Time Slots are available!</h2>
+                        <p class="text-center" style="margin-bottom: 139px;">The tutor needs to create Time Slots in order for you to book a sessions.<br>
+                            Do you want to send a message to the tutor?
+                            <br>
+                            Click here
+                            <br>
+                            <a href="{{ session_url }}">Link to the session/contact the tutor</a>
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+	</div>
+    </div>
+</div>
+
+<div class="container-fluid btnSection fixed-btnsection btnSection-height">
+    <div class="container">
+        <div class="pull-right col-sm-8 col-xs-12">
+            <form action="/booking/thankyou" method="Get">
+            
+            <div class="outer-btn float-none">
+                <button class="btn btn-danger orangeBtn pull-right" onclick="Drupal.behaviors.bookingform.requestBookingbtn()">Request booking</button>
+                <span>Your credit card won’t be charged yet</span>
+                
+            </div>
+             <a class="btn btn-danger cancel-width left" href="{{ session_url }}">Cancel booking</a>   
+            <input type="hidden" name="period_start" id="period_start" />
+            <input type="hidden" name="period_end" id="period_end" />
+            <input type="hidden" name="timeslot_id" id="timeslot_id" />
+            </form>
+        </div>
+    </div>
+</div>

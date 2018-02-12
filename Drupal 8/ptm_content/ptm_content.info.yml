@@ -1,0 +1,21 @@
+name: 'ptm content'
+type: module
+core: 8.x
+dependencies:
+  - comment
+  - field
+  - field_group
+  - flag
+  - image
+  - language
+  - languagefield
+  - menu_ui
+  - node
+  - options
+  - path
+  - rdf
+  - taxonomy
+  - text
+  - user
+  - views
+description: 'PTM content '

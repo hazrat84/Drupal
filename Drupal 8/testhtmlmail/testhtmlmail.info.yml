@@ -1,0 +1,5 @@
+name: Test HTML Mail
+description: A test html mail form to enter user details.
+core: 8.x
+package: Custom
+type: module
