@@ -1,5 +1,0 @@
-services:
-  stripe_payment.stripe_payment:
-    class: Drupal\stripe_payment\StripeApiService
-    arguments: ["@config.factory", "@entity_type.manager", "@key.repository"]
-

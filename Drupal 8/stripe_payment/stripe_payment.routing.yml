@@ -1,9 +1,0 @@
-stripe_payment.admin:
-  path: '/admin/config/services/stripe_api'
-  defaults:
-    _form: '\Drupal\stripe_payment\Form\StripeApiAdminForm'
-    _title: 'Stripe API Settings'
-  requirements:
-    _permission: 'administer stripe api'
-  options:
-    _admin_route: TRUE

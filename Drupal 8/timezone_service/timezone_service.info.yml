@@ -1,5 +1,0 @@
-name: Timezone Service
-type: module
-description: This module has methods related to Timezone.
-core: 8.x
-package: custom

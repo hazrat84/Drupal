@@ -1,8 +1,0 @@
-name: Responsive Image
-type: module
-description: A module for To define breakpoints for responsive image
-package: Core
-version: version
-core: 8.x
-dependencies:
-  - breakpoints

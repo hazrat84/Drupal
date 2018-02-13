@@ -1,7 +1,0 @@
-testhtmlmail.form:
- path: '/testhtmlmail/myform'
- defaults:
-   _title: 'Application form'
-   _form: '\Drupal\testhtmlmail\Form\TestmailForm'
- requirements:
-   _permission: 'access content'

@@ -1,5 +1,0 @@
-services:
-  timezone_service.has_word:
-    class: Drupal\timezone_service\TZServices
-  timezone_service.time24to12:
-    class: Drupal\timezone_service\TZServices
