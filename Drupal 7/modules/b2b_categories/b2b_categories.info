@@ -1,6 +1,0 @@
-name = B2B Categories
-description = This will display all the categories with their node count
-core = 7.x
-project = "B2B"
-datestamp = "1484076787"
-

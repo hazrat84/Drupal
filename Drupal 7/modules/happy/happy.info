@@ -1,7 +1,0 @@
-name = Happy
-description = An example module for creating modal windows using the CTools framework.
-core = 7.x
-package = User interface
-php = 5.2.4
-dependencies[] = ctools
-dependencies[] = views

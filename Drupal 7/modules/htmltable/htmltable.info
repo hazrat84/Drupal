@@ -1,4 +1,0 @@
-name = Html table Example
-description = An example module showing users in html table
-package = Example Modules
-core = 7.x

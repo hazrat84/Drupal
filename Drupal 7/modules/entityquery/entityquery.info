@@ -1,4 +1,0 @@
-name = Entity Query
-description = Shows how to use entity query to fetch data from drupal
-package = Entity Query Example
-core = 7.x

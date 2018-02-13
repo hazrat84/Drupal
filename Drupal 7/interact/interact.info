@@ -1,6 +1,0 @@
-; $Id$
-name = Interact
-description = "Example of using Javascript, JQuery and Drupal's javascript libraries"
-package = Drupal JS
-core = 7.x
-scripts[] = interact.js
