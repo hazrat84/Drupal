@@ -1,0 +1,4 @@
+name = Recipe
+description = Creating Vocabularies of Entity Types
+package = Recipe Example
+core = 7.x

@@ -1,0 +1,23 @@
+<?php
+
+/**
+ * @file
+ * This module provide a node type called job post
+ */
+
+/**
+ * Implements hook_node_info() to provide our job_post type.
+ */
+
+function job_post_node_info(){
+    return array(
+      'job_post' => array(
+        'name' => t('Job Post'),
+        'base' => 'job_post',
+        'description' => t('Use this content type to post a job.'),
+        'has_title' => TRUE,
+        'title_label' => t('Job Title'),
+        'help' => t('Enter the job title, job description, and the name of the company that posted the job'),  
+      ),  
+    );
+}

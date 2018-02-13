@@ -1,0 +1,84 @@
+<?php
+/**
+* Implements of hook_services_resources().
+*/
+function resources_services_resources() {
+  $api = array(
+    'blog' => array(
+      'operations' => array(
+        'retrieve' => array(
+          'help' => 'Retrieves posted blogs',
+          'callback' => '_resources_blog_retrieve',
+          'access callback' => 'user_access',
+          'access arguments' => array('access content'),
+          'access arguments append' => FALSE,
+          'args' => array(
+            array(
+              'name' => 'fn',
+              'type' => 'string',
+              'description' => 'Function to perform',
+              'source' => array('path' => '0'),
+              'optional' => TRUE,
+              'default' => '0',
+            ),
+            array(
+              'name' => 'nitems',
+              'type' => 'int',
+              'description' => 'Number of latest items to get',
+              'source' => array('param' => 'nitems'),
+              'optional' => TRUE,
+              'default' => '0',
+            ),
+            array(
+              'name' => 'since',
+              'type' => 'int',
+              'description' => 'Posts from the last number of days',
+              'source' => array('param' => 'since'),
+              'optional' => TRUE,
+              'default' => '0',
+            ),
+          ),
+        ),
+      ),
+    ),
+  );
+  return $api;
+}
+
+/**
+* Callback function for blog retrieve
+*/
+function _resources_blog_retrieve($fn, $nitems, $timestamp) {
+  // Check for mad values
+  $nitems = intval($nitems);
+  $timestamp = intval($timestamp);
+  return
+
+resources_find_blog_items($nitems, $timestamp);
+}
+
+/**
+* Gets blog posts
+*/
+function resources_find_blog_items($nitems, $timestamp) {
+  // Compose query
+  $query = db_select('node', 'n');
+  $query->join('node_revision', 'v', '(n.nid = v.nid) AND (n.vid = v.vid)');
+  $query->join('users', 'u', 'n.uid = u.uid');
+  $query->join('field_data_body', 'b', '((b.entity_type = \'node\') AND (b.entity_id = n.nid) AND (b.revision_id = n.vid))');
+  $query->fields('v', array('timestamp', 'title'));
+  $query->addField('u', 'name', 'author');
+  $query->addField('b', 'body_value', 'content');
+  $query->condition('n.type', 'blog', '=');
+  // How many days ago?
+  if ($timestamp) {
+   $query->condition('v.timestamp', time() - ($timestamp * 60 * 60 * 24), '>');
+  }
+  $query->orderBy('v.timestamp', 'DESC');
+  // Limited by items?
+  if ($nitems) {
+    $query->range(0, $nitems);
+  }
+  $items = $query->execute()->fetchAll();
+  return $items;
+}

@@ -1,0 +1,169 @@
+<?php
+
+/**
+*  Implements hook_menu().
+*/
+
+function htmltable_menu(){
+	$items = array();
+
+	$items['users/listing'] = array(
+		'title' => t('Users Listing'),
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('htmltable_form'),
+		'access arguments' => array('access content'),
+		'type' => MENU_CALLBACK
+	);
+
+	$items['show/movies'] = array(
+		'title' => t('Movies'),
+		'page callback' => 'show_movies',
+		'access arguments' => array('access content'),
+		'type' => MENU_CALLBACK
+	);
+
+	return $items;
+}
+
+//require_once 'common.inc';
+
+/**
+* The "Users list" table
+*
+*/
+
+function htmltable_form($form, &$form_state){
+	//$header = array('ID', 'Name', 'Mail', 'Registration Date');
+	  
+	// Add Javascript for changing page title
+  	drupal_add_js(drupal_get_path('module', 'htmltable') . '/ajax_comm.js');
+	$form = array();
+
+	$form['filter'] = array(
+		'#type' => 'fieldset',
+		'#collapsible' => True,
+		'#collapsed' => false,
+		'#title' => t('Filter form')
+	);
+
+	$form['filter']['filter_user'] = array(
+		'#type' => 'textfield',
+		'#title' => t('Username'),
+		'#size' => 15,
+	);
+
+	$form['filter']['submit'] = array(
+		'#type' => 'submit',
+		'#value' => t('Filter'),
+	);
+
+	# configure the table header columns
+	$header = array(
+			array('data' => 'id', 'field' => 'id'),
+			array('data' => 'Name', 'field' => 'name', 'sort' => 'ASC'),
+			array('data' => 'Mail', 'field' => 'mail', 'sort' => 'ASC'),
+			array('data' => 'Registration Date', 'field' => 'created', 'sort' => 'ASC')
+		);
+
+
+	# set the database table
+	$query = db_select('users', 'u')->extend('PagerDefault');
+
+	# get the desired field from the database
+	if (isset($form_state['filters']['uname'])) {
+		// if username is set
+		$query->condition('u.name', '%'. db_like($form_state['filters']['uname']) . '%', 'LIKE');
+	}
+
+	$query->condition('u.uid', 0, '<>')
+	      ->fields('u', array('uid', 'name', 'mail', 'created'))
+		  ->orderBy('created', 'DESC')
+		  ->limit(10);
+
+	$results = $query->execute();
+
+	# build the table filed
+	$rows = array();
+
+	foreach($results as $row){
+		$rows[] = array($row->uid, $row->name, $row->mail, format_date($row->created, 'dd/mm/Y'));
+	}
+
+	//$output = theme('table', array('header' => $header, 'rows' => $rows));
+
+	$form['table'] = array(
+		'#theme' => 'table',
+		'#header' => $header,
+		'#rows' => $rows,
+		'#empty' => t('table has now row!')
+	);
+
+	# add the pager
+	//$output .=  theme('pager');
+	
+	return $form;
+	//return $output;
+
+	
+}
+
+
+function htmltable_form_submit($form, &$form_state){//print_r($form_state);
+	$form_state['filters']['uname'] = $form_state['values']['filter_user'];
+  	$form_state['rebuild'] = TRUE;
+}
+
+function show_movies(){
+	return views_embed_view('movies', $display_id = 'default');
+}
+
+/**
+* Implements hook_block_info().
+*/
+
+function htmltable_block_info(){
+	$blocks = array();
+	$blocks['Test_Block'] = array(
+		'info' => t('Test Block'),
+	);
+
+	return $blocks;
+}
+
+/**
+* Implements hook_block_view().
+*/
+
+function htmltable_block_view($delta = ''){
+	$block = array();
+
+	switch($delta){
+		case 'Test_Block':
+			$block['subject'] = '';
+			$block['content'] = htmltable_block_content();
+		break;
+	}
+
+	return $block;
+}
+
+function htmltable_block_content(){
+	//$output = t('Hello World');
+	//return $output;
+	/*global $user;
+	$account = user_load($user->uid);
+	module_load_include('inc', 'user', 'user.pages');
+	$form_state = array();
+	$form_state['build_info']['args'] = array($account);
+	form_load_include($form_state, 'inc', 'user', 'user.pages');
+	return render(drupal_build_form('user_profile_form', $form_state));*/
+	if (!function_exists('node_add')) {
+  		module_load_include('inc', 'node', 'node.pages');
+	}
+	$add_node = node_add('article');
+	//$add_node['field_date']['und'][0]['#default_value'] = 'DATE';
+	//print_r($add_node['field_date']);
+	//dpm($add_node);
+	//print_r($add_node);
+	return drupal_render($add_node);
+}
