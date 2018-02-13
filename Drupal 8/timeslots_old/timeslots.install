@@ -1,0 +1,93 @@
+<?php
+
+function timeslots_schema(){
+    $schema['timeslots'] = array(
+        'fields' => array(
+            'id' => array(
+                'type' => 'serial',
+                'not null' => TRUE,
+            ),
+            'startdate' => array(
+                'type' => 'int',
+                'length' => 11,
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'enddate' => array(
+                'type' => 'int',
+                'length' => 11,
+                'unsigned' => TRUE,
+                'not null' => TRUE
+            ),
+            'recurrent' => array(
+                'type' => 'varchar',
+                'length' => 25
+            ),
+            'created_date' => array(
+                'type' => 'int',
+                'length' => 11,
+                'unsigned' => TRUE,
+                'not null' => TRUE
+            ),
+            'modified_date' => array(
+                'type' => 'int',
+                'length' => 11,
+                'unsigned' => TRUE,
+                'not null' => TRUE
+            ),
+            'tutor_id' => array(
+                'type' => 'int',
+                'length' => 11,
+                'not null' => TRUE,
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    $schema['timeslots_schedule'] = array(
+        'fields' => array(
+            'id' => array(
+                'type' => 'serial',
+                'not null' => TRUE,
+            ),
+            'starttime' => array(
+                'type' => 'int',
+                'length' => 11,
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'endtime' => array(
+                'type' => 'int',
+                'length' => 11,
+                'unsigned' => TRUE,
+                'not null' => TRUE
+            ),
+            'isbooked' => array(
+                'type' => 'int',
+                'size' => 'tiny',
+                'not null' => TRUE,
+            ),
+            'created_date' => array(
+                'type' => 'int',
+                'length' => 11,
+                'unsigned' => TRUE,
+                'not null' => TRUE
+            ),
+            'modified_date' => array(
+                'type' => 'int',
+                'length' => 11,
+                'unsigned' => TRUE,
+                'not null' => TRUE
+            ),
+            'timeslot_id' => array( // as foreign key
+                'type' => 'int',
+                'length' => 11,
+                'unsigned' => TRUE,
+                'not null' => TRUE
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+
+    return $schema;
+}
