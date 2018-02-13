@@ -1,0 +1,7 @@
+langcode: da
+status: true
+dependencies: {  }
+id: comment
+label: Standardkommentarer
+target_entity_type_id: node
+description: 'Tillader kommentarer på indhold'

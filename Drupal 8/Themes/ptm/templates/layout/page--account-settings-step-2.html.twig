@@ -1,0 +1,50 @@
+{% include '/themes/custom/peopleteachme/templates/layout/dashboard-account-header.html.twig' %}
+<div class="container-fluid sectionBg">
+    <div class="container">
+        <div class="row">
+            <div class="sideNav col-sm-4 col-xs-12">
+                {% include '/themes/custom/peopleteachme/templates/layout/dashboard-sidebar.html.twig' %}
+            </div>
+            <div class="mainContent col-sm-8 col-xs-12 sessionPage padding-top ">
+                <div class="mainContent col-sm-12  col-xs-12">
+                    <div class="col-sm-12">
+                        <strong class="font-18">I want to receive</strong>
+                        <p class="margin2">You can disable these at any time.</p>
+                        <div class="form-group check-box blackCheckBox">
+                            <input type="checkbox" name="checkbox" value="value" >
+                            <label>General promotions, updates, news about PeopleTeachMe or general promotions for partner campaigns and services, user surveys, inspiration, and good thought and love from PeopleTeachMe.</label>
+                        </div>
+                        <div class="form-group check-box blackCheckBox">
+                            <input type="checkbox" name="checkbox" value="value" >
+                            <label>Reservation and review reminders.</label>
+                        </div>
+                        <div class="form-group check-box blackCheckBox">
+                            <input type="checkbox" name="checkbox" value="value" >
+                            <label>Information on all Topics and Skills</label>
+                        </div>
+                        <div class="form-group check-box blackCheckBox">
+                            <input type="checkbox" name="checkbox" value="value" >
+                            <label>Information on your Topics and Skills</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid btnSection fixed-btnsection">
+    <div class="container">
+        <div class="pull-right col-sm-8 col-xs-12">
+            <button class="btn orangeBtn pull-right">Save</button>
+        </div>
+    </div>
+</div>
+<div class="container-fluid footer footer1 endPaddingfooterbtn"> <span class="col-sm-12 text-center">
+
+    <a class="objectClick" href="{{ path('<front>') }}">
+        <object data="/themes/custom/peopleteachme/images/new-logo5.svg" type="image/svg+xml">
+            <img src="/themes/custom/peopleteachme/images/new-logo5.svg" />
+        </object>
+    </a>
+    <span class="col-sm-12 left-footer">COPYRIGHT © 2017 &nbsp; &nbsp; &nbsp; All rights reserved and copyright on all content on PeopleTeachMe platforms.
+    </span></span> </div>

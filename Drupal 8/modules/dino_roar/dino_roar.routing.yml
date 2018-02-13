@@ -1,0 +1,7 @@
+dino_roar.will_display_roar_sound:
+  path: '/dino/says/{count}'
+  defaults:
+    _controller: '\Drupal\dino_roar\Controller\RoarController::roar'
+    _title: 'Roar'
+  requirements:
+    _permission: 'access content'

@@ -1,0 +1,8 @@
+name: Booking Form Block
+description: A Block that will display booking form.
+core: 8.x
+package: Custom
+dependencies:
+- node
+- block
+type: module

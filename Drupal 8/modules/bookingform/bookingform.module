@@ -1,0 +1,13 @@
+<?php
+/**
+ * @file
+ * Code for the Chad module.
+ */
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function bookingform_entity_type_build(array &$entity_types) {
+  $entity_types['bookinginfo']->setFormClass('booking_display', '\Drupal\bookingform\Form\BookingForm');
+}
+?>

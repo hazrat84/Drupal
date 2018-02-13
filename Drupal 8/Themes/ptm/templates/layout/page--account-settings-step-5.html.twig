@@ -1,0 +1,49 @@
+{% include '/themes/custom/peopleteachme/templates/layout/dashboard-account-header.html.twig' %}
+<div class="container-fluid sectionBg">
+    <div class="container">
+        <div class="row">
+            <div class="sideNav col-sm-4 col-xs-12">
+                {% include '/themes/custom/peopleteachme/templates/layout/dashboard-sidebar.html.twig' %}
+            </div>
+            <div class="mainContent col-sm-8 col-xs-12 sessionPage privacy ">
+                <div class="mainContent col-sm-12  col-xs-12">
+                    <div class="col-sm-12">
+                        <h4 class="font-20">Privacy</h4>
+                        <strong class="font-18">Your products and profile in Search Engines</strong>
+                        <p class="regular-font">Search engines attract lots of traffic and interest to your product. You can turn off search indexing, preventing search engines from displaying your products in their search results. <br>
+                            <br>
+                            <strong>Note:</strong>This is not optional and is activated by default. </p>
+                        <h3 class="semi-bold">Social Connections</h3>
+                        <div class="form-group check-box blackCheckBox">
+                            <input type="checkbox" name="checkbox" value="value">
+                            <label>Connect with my friends that are also using PeopleTeachMe.</label>
+                        </div>
+                        <p class="regular-font">Social connections highlights your activity, which may include your username, Facebook profile photo and recent locations you visited to your Facebook friends.<br>
+                            <br>
+                            If you turn off this feature, your activity will not be shared to other Facebook friends. Your public activities (such as wish lists and public reviews) will still be shown to other users.<br>
+                            <br>
+                            If you want to disconnect your Facebook account from PeopleTeachMe, go to Trust and Verifications to learn more.</p>
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid btnSection fixed-btnsection">
+    <div class="container">
+        <div class="pull-right col-sm-8 col-xs-12">
+            <button class="btn btn-danger orangeBtn pull-right">Save</button>
+        </div>
+    </div>
+</div>
+<div class="container-fluid footer footer1 endPaddingfooterbtn"> <span class="col-sm-12 text-center">
+
+    <a class="objectClick" href="{{ path('<front>') }}">
+        <object data="/themes/custom/peopleteachme/images/new-logo5.svg" type="image/svg+xml">
+            <img src="/themes/custom/peopleteachme/images/new-logo5.svg" />
+        </object>
+    </a>
+    <span class="col-sm-12 left-footer">COPYRIGHT © 2017 &nbsp; &nbsp; &nbsp; All rights reserved and copyright on all content on PeopleTeachMe platforms.
+    </span>
+</span> </div>

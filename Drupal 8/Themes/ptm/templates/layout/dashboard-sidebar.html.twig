@@ -1,0 +1,15 @@
+{% set url = url('<current>') %}
+{% set urlArray = url['#markup'] | split('/')%}
+{% set count = urlArray | length %}
+{% set uri = urlArray[count - 1] %}
+<ul>
+    <li class="{% if(uri == 'profile-settings' or uri == 'profile-photo' or uri == 'profile-introduction' ) %} active{% endif %}"><a href="/en/profile-settings" class="darkBlue">My Profile</a></li>
+
+    <li class="{% if(uri == 'account-settings-step-1' or uri == 'account-settings-step-2' or uri == 'account-settings-step-3' or uri == 'account-settings-step-4' or uri == 'account-settings-step-5') %} active{% endif %}"><a href="/en/account-settings-step-1" class="darkBlue">My Account</a></li>
+    <li class="{% if(uri == 'my-sessions-lists' or uri == 'my-sessions-lists-inactive') %} active{% endif %}"><a href="/en/my-sessions-lists" class="darkBlue">My Session List</a></li>
+
+    <li class="{% if(uri == 'timeslot-listing') %} active{% endif %}"><a href="/en/timeslot-listing" class="darkBlue">Time Slot Overview</a></li>
+    <li class=""><a href="#" class="darkBlue">Messages</a></li>
+    <li class="{% if(uri == 'transactions-orders' or uri == 'balanced') %} active{% endif %}"><a href="/en/transactions-orders" class="darkBlue">Transactions & Orders</a></li>
+    <li class="{% if(uri == '14') %} active{% endif %}"><a href="/en/node/14" class="darkBlue">Help & Support</a></li>
+</ul>

@@ -1,0 +1,5 @@
+name: Time Slots
+description: This module will display Time Slots Listing and and form to add new one
+core: 8.x
+package: Custom
+type: module

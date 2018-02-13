@@ -1,0 +1,83 @@
+{% include '/themes/custom/peopleteachme/templates/layout/dashboard-account-header.html.twig' %}
+<div class="container-fluid sectionBg">
+    <div class="container">
+        <div class="row">
+            <div class="sideNav col-sm-4 col-xs-12">
+                {% include '/themes/custom/peopleteachme/templates/layout/dashboard-sidebar.html.twig' %}
+            </div>
+            <div class="mainContent col-sm-8 col-xs-12 sessionPage padding-bottom zero">
+                <div class="mainContent col-sm-12  col-xs-12 zero">
+                    <h4 style="padding-bottom:10px; padding-top:10px;">Settings</h4>
+
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input class="form-control" type="text" placeholder="First name">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" placeholder="Last name">
+                        </div>
+                        <div class="form-group ">
+                            <input class="form-control" type="text" placeholder="Contact address">
+                        </div>
+                        <div class="form-group half-input">
+                            <input class="form-control half" type="text" placeholder="Zip code">
+                            <input class="form-control half2" type="text" placeholder="City">
+                        </div>
+                        <span class="span-left">Your exact address will not shared with users</span> </div>
+
+
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <input class="form-control" type="text" placeholder="Contact address">
+                        </div>
+                        <div class="form-group">
+                            <div class="select-style selectpicker form-control">
+                                <select>
+                                    <option>Select a state</option>
+                                    <option>Select a state</option>
+                                    <option>Select a state</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="select-style selectpicker form-control">
+                                <select>
+                                    <option>Country of residence</option>
+                                    <option>Country of residence</option>
+                                    <option>Country of residence</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="select-style selectpicker form-control">
+                                <select>
+                                    <option>Select Time zone</option>
+                                    <option>Select Time zone</option>
+                                    <option>Select Time zone</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid btnSection fixed-btnsection">
+    <div class="container">
+        <div class="pull-right col-sm-8 col-xs-12">
+            <button class="btn btn-danger orangeBtn pull-right">Save</button>
+        </div>
+    </div>
+</div>
+<div class="container-fluid footer footer1 endPaddingfooterbtn"> <span class="col-sm-12 text-center">
+    <a class="objectClick" href="{{ path('<front>') }}">
+        <object data="/themes/custom/peopleteachme/images/new-logo5.svg" type="image/svg+xml">
+            <img src="/themes/custom/peopleteachme/images/new-logo5.svg" />
+        </object>
+    </a>
+    <span class="col-sm-12 left-footer">COPYRIGHT © 2017 &nbsp; &nbsp; &nbsp; All rights reserved and copyright on all content on PeopleTeachMe platforms.
+    </span>
+</span> </div>

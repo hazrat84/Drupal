@@ -1,0 +1,5 @@
+name: Dino Roar
+description: This module will just show the Roar Power of Dino.
+core: 8.x
+package: Custom
+type: module

@@ -1,0 +1,11 @@
+bookingform.calculate.js:
+  version: VERSION
+  js:
+    js/bootbox.js: {}
+    js/bookingform.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+    
+        

@@ -1,0 +1,26 @@
+name: peopleteachme
+description: PeopleTeachMe.com offers a full service solution for Online Tutor
+type: theme
+core: 8.x
+
+regions:
+  navigation: 'Navigation'
+  navigation_collapsible: 'Navigation (Collapsible)'
+  header: 'Top Bar'
+  highlighted: 'Highlighted'
+  help: 'Help'
+  content: 'Content'
+  sidebar_first: 'Primary'
+  sidebar_second: 'Secondary'
+  footer: 'Footer'
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  booking_form: 'Booking Form'
+
+libraries:
+    - peopleteachme/global-css
+    - peopleteachme/global-js
+stylesheets-remove:
+    - core/themes/stable/css/views/views.module.css
+    - core/themes/stable/css/system/components/align.module.css
+    
