@@ -1,0 +1,75 @@
+{#
+/**
+ * @file
+ * Theme override to display a view of unformatted rows.
+ *
+ * Available variables:
+ * - title: The title of this group of rows. May be empty.
+ * - rows: A list of the view's row items.
+ *   - attributes: The row's HTML attributes.
+ *   - content: The row's content.
+ * - view: The view object.
+ * - default_row_class: A flag indicating whether default classes should be
+ *   used on rows.
+ *
+ * @see template_preprocess_views_view_unformatted()
+ */
+#}
+
+<div class="container-fluid sectionBg">
+    <div class="container">
+        <div class="row">
+            <div class="sideNav col-sm-4 col-xs-12">
+                <ul>
+                    <li><a href="#" class="darkBlue">My Profile</a></li>
+                    <li><a href="/account-settings-step-1" class="darkBlue">My Account</a></li>
+                    <li><a href="/en/my-sessions-lists" class="darkBlue">My Session List</a></li>
+                    <li class="active"><a href="/timeslot-listing" class="darkBlue">Time Slot Overview</a></li>
+                    <li><a href="#" class="darkBlue">Messages</a></li>
+                    <li><a href="/en/transactions-orders" class="darkBlue">Transactions & Orders</a></li>
+                    <li><a href="/en/node/14" class="darkBlue">Help & Support</a></li>
+                </ul>
+            </div>
+            <div class="mainContent timePage col-sm-8 col-xs-12">
+                
+                <div class="timeSlots col-xs-12"  style="padding:0;">
+                    {% for row in rows %}
+                        
+                        <h3 class="col-xs-12 headingTimeSlot">{{ row['content']['#row']._entity.getStartDate() }}</h3>
+                        <ul class="col-xs-12 contentTimeSlot">
+                            <li  class="col-xs-12">
+                                <span class="col-lg-2 col-md-2 col-sm-3 col-xs-3">{{ row['content']['#row']._entity.getStartTime() }}</span>
+                                <span class="col-lg-6 col-md-6 col-sm-4 col-xs-3">{{ row['content']['#row']._entity.getEndTime() }}</span>
+                                {% if row['content']['#row']._entity.getBookingStatus() == 0 %}
+                                <span class="col-lg-1 col-md-1 col-sm-2  col-xs-2 text-center" style="border-left:1px solid rgba(0,0,0,0.12);">
+                                    <a href="{{ path('entity.timeslots.edit_form',{'timeslots' : row['content']['#row']._entity.getID()} ) }}" class="use-ajax" data-dialog-type="modal" data-dialog-options='{"width":400}'>
+                                        <img style="width:100%;max-width: 20px;" src="/{{ directory }}/images/edit.png">
+                                    </a>
+                                </span>
+                                <span class="col-lg-3 col-md-3 col-sm-3 col-xs-4" style="border-left:1px solid rgba(0,0,0,0.12);">
+                                    <input type="checkbox" class="delete-checkboxes" value="{{ row['content']['#row']._entity.getID() }}"><label>Delete</label>
+                                </span>
+                                {% else %}
+                                    Is Booked 
+                                {% endif %}
+                            </li>
+                        </ul>
+                        
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid btnSection fixed-btnsection">
+    <div class="container">
+        <div class="pull-right col-sm-8 col-xs-12">
+            
+            <!--<a href="/timeslots/add" class="use-ajax pull-right" data-dialog-type="modal" data-dialog-options='{"width":400}'>
+                <button class="btn btn-danger orangeBtn pull-right">Create Time Slot</button>
+            </a>-->
+            <a href="/timeslots/add" class="btn btn-danger orangeBtn pull-right use-ajax create-time-width" data-dialog-type="modal" data-dialog-options='{"width":400}'>Create Time Slot</a>
+            <button class="btn btn-danger delete-timeslots left">Delete selected</button>
+        </div>
+</div>
+    </div>

@@ -1,0 +1,62 @@
+<?php
+
+/**
+ * @file
+ * Bootstrap custom-theme.
+ *
+ * Place your custom PHP code in this file.
+ * Contains theme override functions.
+ */
+
+use \Drupal\Core\Form\FormStateInterface;
+use Drupal\user\Entity\User;
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ */
+function peopleteachme_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    $content_type  = $node->bundle();
+    $suggestions[] = 'page__node__'.$content_type;
+  }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function peopleteachme_form_alter(&$form, FormStateInterface $form_state, $form_id){
+    
+    if($form_id == 'bookinginfo_booking_display_form'){ // for booking form
+        
+    }
+}
+
+function peopleteachme_preprocess_node(&$variables){
+    if(isset($variables)){
+        
+        if($variables['node']->bundle() == 'session'){
+            //$variables['node']->id();
+            $lang_count = count($variables['node']->field_language);
+            
+            $languages = '';
+            for($l = 0; $l < $lang_count; $l++){
+
+                if($languages == ''){
+                    if(isset($variables['content']['field_language'])){
+                        $languages = $variables['content']['field_language'][$l]['#text'];
+                    }
+                }else{
+                    if(isset($variables['content']['field_language'])){
+                        $languages .= ', '.$variables['content']['field_language'][$l]['#text'];
+                    }
+                }
+            }
+            $tutor_id = $variables['node']->getOwnerId();
+            $tutor_info = User::load($tutor_id);
+            // {{ author_name }}
+            $variables['tutor_name'] = $tutor_info->get('field_firstname')->value." ".$tutor_info->get('field_lastname')->value;
+            $variables['session_languages'] = $languages;
+            $variables['tutor_country'] = $tutor_info->get('field_user_country')->value;
+        }
+    }
+}

@@ -1,0 +1,45 @@
+{% extends "block.html.twig" %}
+{#
+/**
+ * @file
+ * Theme override for a branding block.
+ *
+ * Each branding element variable (logo, name, slogan) is only available if
+ * enabled in the block configuration.
+ *
+ * Available variables:
+ * - site_logo: Logo for site as defined in Appearance or theme settings.
+ * - site_name: Name for site as defined in Site information settings.
+ * - site_slogan: Slogan for site as defined in Site information settings.
+ */
+#}
+{% block content %}
+        <div class="col-sm-4 col-xs-2 logo"> 
+            <a href="{{ path('<front>') }}" class="objectClick" title="{{ 'Home'|t }}" rel="home">
+                <object data="/themes/custom/peopleteachme/images/logo-teach-me.svg" type="image/svg+xml">
+                    <img src="/themes/custom/peopleteachme/images/logo-teach-me.svg" alt="{{ 'Home'|t }}" />
+                </object>
+                <img class="risponsiveLogo" src="/{{ directory }}/images/risponsiveLogo.png">
+                <!-- <img src="{{ site_logo }}" alt="{{ 'Home'|t }}" /> -->
+            </a>
+        </div>
+      <div class="col-sm-8 col-xs-8">
+        <button class="risponsiveNav">
+          <span></span>
+        </button>
+        <!-- <ul class="nav navbar-nav pull-right">
+          <li><a href="#">Become a tutor</a></li>
+          <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">What you can learn <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Page 1-1</a></li>
+              <li><a href="#">Page 1-2</a></li>
+              <li><a href="#">Page 1-3</a></li>
+            </ul>
+          </li>
+          <li><a href="#">Help</a></li>
+          <li class="signIn"><a href="#">Sign in</a></li>
+        </ul> -->
+      </div>
+    
+{% endblock %}
+

@@ -1,0 +1,52 @@
+{% include '/themes/custom/peopleteachme/templates/layout/dashboard-account-header.html.twig' %}
+<div class="container-fluid sectionBg">
+    <div class="container">
+        <div class="row">
+            <div class="sideNav col-sm-4 col-xs-12">
+                {% include '/themes/custom/peopleteachme/templates/layout/dashboard-sidebar.html.twig' %}
+            </div>
+            <div class="mainContent col-sm-8 col-xs-12 sessionPage padding-bottom ">
+                <div class="mainContent col-sm-12  col-xs-12">
+
+                    <h4>Profile photo</h4>
+                    <div class="col-sm-12">
+                        <div class="textarea">
+                            <textarea rows="5" cols="95" placeholder="Personal introduction(450 characters)"></textarea>
+                        </div>
+                    </div>
+                    <span class="span-left margin-left padding-bottom">Help other people get to know you as a tutor.</span>
+
+                    <div class="col-md-6">
+                        <div class="uploadImage"> <img src="/themes/custom/peopleteachme/images/uploadVideo.png" alt="Upload Photo">
+                            <button>Upload intro video</button>
+                            <p class="text-center grey">Creating a 30 sek. video to introduce yourself is an easy and informative way for others to learn about you as a tutor. Prepare for presentation, talt clear and make it short.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="uploadImage"><div class="image2"><img src="/themes/custom/peopleteachme/images/uploadVideo2.png" alt="Upload Photo"> </div></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid btnSection fixed-btnsection">
+    <div class="container">
+        <div class="pull-right col-sm-8 col-xs-12">
+            <button class="btn btn-danger orangeBtn save pull-right">Save</button>
+            <button class="btn greenBtn margin-right pull-right">Preview profile</button>
+        </div>
+    </div>
+</div>
+<div class="container-fluid footer footer1 endPaddingfooterbtn"> <span class="col-sm-12 text-center">
+
+    <a class="objectClick" href="{{ path('<front>') }}">
+        <object data="/themes/custom/peopleteachme/images/new-logo5.svg" type="image/svg+xml">
+            <img src="/themes/custom/peopleteachme/images/new-logo5.svg" />
+        </object>
+    </a>
+    <span class="col-sm-12 left-footer">COPYRIGHT © 2017 &nbsp; &nbsp; &nbsp; All rights reserved and copyright on all content on PeopleTeachMe platforms.
+    </span></span> </div>

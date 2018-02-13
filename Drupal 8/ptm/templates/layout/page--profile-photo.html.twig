@@ -1,0 +1,46 @@
+{% include '/themes/custom/peopleteachme/templates/layout/dashboard-account-header.html.twig' %}
+<div class="container-fluid sectionBg">
+    <div class="container">
+        <div class="row">
+            <div class="sideNav col-sm-4 col-xs-12">
+                {% include '/themes/custom/peopleteachme/templates/layout/dashboard-sidebar.html.twig' %}
+            </div>
+            <div class="mainContent col-sm-8 col-xs-12 sessionPage padding-bottom ">
+                <div class="mainContent col-sm-12  col-xs-12">
+
+                    <h4 class="font-20" style="padding-top:20px; padding-bottom:10px;">Profile photo</h4>
+                    <div class="col-md-6">
+                        <div class="uploadImage">
+                            <div class="image1"> <img src="/themes/custom/peopleteachme/images/profile-photo.png" alt="Upload Photo"> </div>
+                            <button>Upload profile photo</button>
+                            <p class="grey font-15" style="margin-top: 5px;">It’s important to inspire each other with nice and respectable photo.</p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <div class="uploadImage">
+                            <div class="image2"> <img src="/themes/custom/peopleteachme/images/profile-photo2.png" alt="Upload Photo"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid btnSection fixed-btnsection">
+    <div class="container">
+        <div class="pull-right col-sm-8 col-xs-12">
+            <button class="btn btn-danger orangeBtn pull-right">Save</button>
+        </div>
+    </div>
+</div>
+<div class="container-fluid footer footer1 endPaddingfooterbtn"> <span class="col-sm-12 text-center">
+    <a class="objectClick" href="{{ path('<front>') }}">
+        <object data="/themes/custom/peopleteachme/images/new-logo5.svg" type="image/svg+xml">
+            <img src="/themes/custom/peopleteachme/images/new-logo5.svg" />
+        </object>
+    </a>
+    <span class="col-sm-12 left-footer">COPYRIGHT © 2017 &nbsp; &nbsp; &nbsp; All rights reserved and copyright on all content on PeopleTeachMe platforms.
+    </span>
+</span> </div>

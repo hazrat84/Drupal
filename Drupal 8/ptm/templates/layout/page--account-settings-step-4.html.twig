@@ -1,0 +1,59 @@
+{% include '/themes/custom/peopleteachme/templates/layout/dashboard-account-header.html.twig' %}
+<div class="container-fluid sectionBg">
+    <div class="container">
+        <div class="row">
+            <div class="sideNav col-sm-4 col-xs-12">
+                {% include '/themes/custom/peopleteachme/templates/layout/dashboard-sidebar.html.twig' %}
+            </div>
+            <div class="mainContent col-sm-8 col-xs-12 sessionPage padding-bottom">
+                <div class="mainContent col-sm-12  col-xs-12">
+                    <h4 class="font-20">Payout details</h4>
+                    <div class="col-md-6">
+                        <div class="text-center payout-detail"> <img src="/themes/custom/peopleteachme/images/Payment-blue-48x48.png" alt="logo"> <strong>To get paid, you need to set up payout details</strong> </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" placeholder="Your Bank account *">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" placeholder="IBAN *">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" type="text" placeholder="SWIFT *">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="blue-section padding-bottom transferInfo">
+                            <h4 class="zero-top">Transfer Informations</h4>
+                            <strong>Users Transfer FEE</strong>
+                            <p>2,9 % per transaction + 0,26 US $</p>
+                            <br>
+                            <strong>Normal transfer</strong>
+                            <p>3-4 business days</p>
+                            <br>
+                            <strong>Digital sessions</strong>
+                            <p>PepoleTeachMe releases payouts 3-4 days after a scheduled and completed session.</p>
+                            <br>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid btnSection fixed-btnsection">
+    <div class="container">
+        <div class="pull-right col-sm-8 col-xs-12">
+            <button class="btn btn-danger orangeBtn pull-right">Save</button>
+        </div>
+    </div>
+</div>
+<div class="container-fluid footer footer1 endPaddingfooterbtn"> <span class="col-sm-12 text-center">
+
+    <a class="objectClick" href="{{ path('<front>') }}">
+        <object data="/themes/custom/peopleteachme/images/new-logo5.svg" type="image/svg+xml">
+            <img src="/themes/custom/peopleteachme/images/new-logo5.svg" />
+        </object>
+    </a>
+    <span class="col-sm-12 left-footer">COPYRIGHT © 2017 &nbsp; &nbsp; &nbsp; All rights reserved and copyright on all content on PeopleTeachMe platforms.
+    </span>
+</span> </div>

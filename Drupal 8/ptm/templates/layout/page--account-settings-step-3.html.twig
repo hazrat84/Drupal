@@ -1,0 +1,39 @@
+{% include '/themes/custom/peopleteachme/templates/layout/dashboard-account-header.html.twig' %}
+<div class="container-fluid sectionBg">
+    <div class="container">
+        <div class="row">
+            <div class="sideNav col-sm-4 col-xs-12">
+                {% include '/themes/custom/peopleteachme/templates/layout/dashboard-sidebar.html.twig' %}
+            </div>
+            <div class="mainContent col-sm-8 col-xs-12 sessionPage padding-top zero-padding">
+                <div class="mainContent col-sm-12  col-xs-12 zero-padding zero-left-right">
+                    <div class="col-sm-12 payment-outer zero-left-right">
+                        <h4>Payment details</h4>
+                        <div class="addItem payment-detail text-center"> <span>Edit your Payment Details</span>
+                            <div class="payment-detail-section">
+                                <p>Formular from Stripe with card information for payment and License payment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid btnSection fixed-btnsection">
+    <div class="container">
+        <div class="pull-right col-sm-8 col-xs-12">
+            <button class="btn btn-danger orangeBtn pull-right">Save</button>
+        </div>
+    </div>
+</div>
+<div class="container-fluid footer footer1 endPaddingfooterbtn"> <span class="col-sm-12 text-center">
+
+    <a class="objectClick" href="{{ path('<front>') }}">
+        <object data="/themes/custom/peopleteachme/images/new-logo5.svg" type="image/svg+xml">
+            <img src="/themes/custom/peopleteachme/images/new-logo5.svg" />
+        </object>
+    </a>
+    <span class="col-sm-12 left-footer">COPYRIGHT © 2017 &nbsp; &nbsp; &nbsp; All rights reserved and copyright on all content on PeopleTeachMe platforms.
+    </span>
+</span> </div>

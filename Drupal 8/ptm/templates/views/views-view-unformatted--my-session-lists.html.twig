@@ -1,0 +1,79 @@
+{#
+/**
+ * @file
+ * Theme override to display a view of unformatted rows.
+ *
+ * Available variables:
+ * - title: The title of this group of rows. May be empty.
+ * - rows: A list of the view's row items.
+ *   - attributes: The row's HTML attributes.
+ *   - content: The row's content.
+ * - view: The view object.
+ * - default_row_class: A flag indicating whether default classes should be
+ *   used on rows.
+ *
+ * @see template_preprocess_views_view_unformatted()
+ */
+#}
+
+<div class="container-fluid sectionBg">
+    <div class="container">
+        <div class="row">
+            <div class="sideNav col-sm-4 col-xs-12">
+                <ul>
+                    <li><a href="#" class="darkBlue">My Profile</a></li>
+                    <li><a href="#" class="darkBlue">My Account</a></li>
+                    <li class="active"><a href="#" class="darkBlue">My Session List</a></li>
+                    <li><a href="#" class="darkBlue">Time Slot Overview</a></li>
+                    <li><a href="#" class="darkBlue">Messages</a></li>
+                    <li><a href="#" class="darkBlue">Transactions & Orders</a></li>
+                    <li><a href="#" class="darkBlue">Help & Support</a></li>
+                </ul>
+            </div>
+            <div class="mainContent col-sm-8 col-xs-12">
+
+                <div class="mainContent col-sm-8 col-xs-12 sessionPage">
+                    <button class="risponsivesideBar">
+                        <span></span>
+                    </button>
+                </div>
+                <h2 class="">Active sessions</h2>
+                <div class="sessionList">
+                    <ul>
+                        {% for row in rows %}
+                            {% set title = row['content']['#node'].getTitle() | split(' ') %}
+                        <li>
+                            <img src="{{ file_url(row['content']['#node'].field_images.entity.fileuri) }}" alt="session list">
+                            <p><strong>{{ row['content']['#node'].get('field_session_price').value }} US $</strong>
+
+                                {% for t in title %}
+                                    {% if(loop.index == 0 ) %}
+                                        {{ t }}
+                                    {% else %}
+                                        <span>{{ t }}</span>
+                                    {% endif %}
+
+                                {% endfor %}
+
+                                with {{ row['content']['#node'].getOwner().getAccountName() }}, {{ row['content']['#node'].get('field_session_length').value }} minutes…</p>
+                            <div class="endIconSessionList">
+                                <span class="closeSession"></span>
+                                <span class="teachmeSession"></span>
+                                <span class="editSession"></span>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid btnSection">
+    <div class="container">
+        <div class="pull-right col-sm-8 col-xs-12">
+            <button class="btn btn-danger orangeBtn pull-right">New Session</button>
+        </div>
+    </div>
+</div>
+{#row['content']['#row']._entity.getStartDate()#}
