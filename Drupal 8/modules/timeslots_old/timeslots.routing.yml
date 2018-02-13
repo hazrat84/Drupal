@@ -1,23 +1,59 @@
-timeslots.display_timeslots_controller_display:
-  path: '/timeslots'
+# This file brings everything together. Very nifty!
+
+# Route name can be used in sevaral place (links, redirects, local actions etc.)
+entity.timeslots.canonical:
+  path: '/timeslots/{timeslots}'
   defaults:
-    _controller: '\Drupal\timeslots\Controller\DisplayTimeslotsController::list_timeslots'
-    _title: 'TimeSlots'
+  # Calls the view controller, defined in the annotation of the timeslots entity
+    _entity_view: 'timeslots'
+    _title: 'timeslots Content'
+  requirements:
+  # Calls the access controller of the entity, $operation 'view'
+    _entity_access: 'timeslots.view'
+
+entity.timeslots.collection:
+  path: '/timeslots/list'
+  defaults:
+  # Calls the list controller, defined in the annotation of the timeslots entity.
+    _entity_list: 'timeslots'
+    _title: 'Timeslots List'
+  requirements:
+  # Checks for permission directly.
+    _permission: 'view timeslots entity'
+
+entity.timeslots.timeslot_add:
+  path: '/timeslots/add'
+  defaults:
+  # Calls the form.add controller, defined in the timeslots entity.
+    _entity_form: timeslots.add
+    _title: 'Create a Time Slot'
+  requirements:
+    _entity_create_access: 'timeslots'
+
+entity.timeslots.edit_form:
+  path: '/timeslots/{timeslots}/edit'
+  defaults:
+  # Calls the form.edit controller, defined in the timeslots entity.
+    _entity_form: timeslots.edit
+    _title: 'Edit Timeslot'
+  requirements:
+    _entity_access: 'timeslots.edit'
+
+entity.timeslots.delete_form:
+  path: '/timeslots/{timeslots}/delete'
+  defaults:
+    # Calls the form.delete controller, defined in the timeslots entity.
+    _entity_form: timeslots.delete
+    _title: 'Delete timeslot'
+  requirements:
+    _entity_access: 'timeslots.delete'
+    
+timeslots.delete:
+  path: '/timeslots/multipledelete'
+  defaults:
+    _controller: '\Drupal\timeslots\Controller\MultipleDeleteController::multipleDeleteAction'
+    _title: 'Delete timeslot'
   requirements:
     _permission: 'access content'
-
-timeslots.timeslots_form:
-  path: '/timeslots/form'
-  defaults:
-    _form: '\Drupal\timeslots\Form\AddTimeslotForm'
-    _title: 'TimeSlot'
-  requirements:
-    _access: 'TRUE'
-
-timeslots.delete_form:
-  path: '/timeslots/form/delete/{tid}'
-  defaults:
-    _form: '\Drupal\timeslots\Form\DeleteForm'
-    _title: 'DeleteForm'
-  requirements:
-    _access: 'TRUE'
+    
+    

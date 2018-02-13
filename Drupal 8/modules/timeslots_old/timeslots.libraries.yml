@@ -1,0 +1,9 @@
+timeslots.js:
+  version: VERSION
+  js:
+    js/timeslot.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    
+        
