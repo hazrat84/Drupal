@@ -1,0 +1,5 @@
+name = Exploring Node API
+description = Exploring Node API for Drupal 7
+package = Example Modules
+core = 7.x
+files[] = node_api.module

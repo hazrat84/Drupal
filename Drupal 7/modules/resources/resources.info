@@ -1,0 +1,4 @@
+name = Resources
+description = Creating a test Web Service
+package = Resources Example
+core = 7.x

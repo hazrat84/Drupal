@@ -1,0 +1,11 @@
+<?php
+
+function Hello_search_preprocess($text) {
+  // Do processing on $text
+  return $text;
+  /*if($_SESSION['search_terms'] != ''){
+    return $text.' sssss'.$_SESSION['search_terms'];
+  }else{
+    return $text;
+  }*/
+}

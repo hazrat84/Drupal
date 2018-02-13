@@ -1,0 +1,6 @@
+name = Text field
+description = A Simple Text Field for Drupal 7
+package = public-action fields
+core = 7.x
+files[] = textf.module
+files[] = textf.install

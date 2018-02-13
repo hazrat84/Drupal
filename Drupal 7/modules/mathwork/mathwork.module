@@ -1,0 +1,261 @@
+<?php
+// $Id$
+
+/**
+ * @file
+ * Defines a mathwork field type.
+ */
+ 
+/**
+ * Implements hook_help().
+ */
+function mathwork_help($path, $arg) {
+  switch ($path) {
+    case 'admin/help#mathwork':
+      $output = '';
+      $output .= '<h3>' . t('About Math Work Module') . '</h3>';
+      $output .= '<p>' . t('On this page we will provide help about mathwork module. 
+	              See the <a href="@field-help">Field module help page</a> for more 
+				  information about fields.', array('@field-help' => url('admin/help/field'))) . '</p>';
+      return $output;
+  }
+}
+ 
+ 
+/***************************************************************
+ * Field Type API hooks
+ ***************************************************************/
+ 
+/**
+ * Implements hook_field_info().
+ */
+function mathwork_field_info() {
+  return array(
+    'math_square' => array(
+	  'label' => t('Square'),
+	  'description' => t('Stores small text data.'),
+	  'default_widget' => 'math_squarefield',
+	  'default_formatter' => 'math_squareformat',
+	),
+    'math_fact' => array(
+	  'label' => t('Factorial'),
+	  'description' => t('Stores small text data.'),
+	  'default_widget' => 'math_factfield',
+	  'default_formatter' => 'math_factformat',
+	),
+  );
+}
+
+/**
+ * Implements hook_field_schema().
+ */
+function mathwork_field_schema($field) {
+  switch ($field['type']) {
+    case 'math_square':
+      $columns = array(
+        'math_square' => array(
+          'type' => 'varchar',
+          'length' => 10,
+          'not null' => FALSE,
+        ),
+      );
+      break;
+    case 'math_fact':
+      $columns = array(
+        'math_fact' => array(
+          'type' => 'varchar',
+          'length' => 10,
+          'not null' => FALSE,
+        ),
+      );
+      break;
+  }
+
+  return array('columns' => $columns);
+}
+
+
+/**
+ * Implements hook_field_validate().
+ */
+function mathwork_field_validate($obj_type, $object, $field, $instance, $langcode, &$items, &$errors) {
+  foreach($items as $delta => $item) {
+    if(isset($item['math_square'])) {
+	  if($item['math_square'] != ''){
+        if(! preg_match('@^[0-9]+$@', $item['math_square'])) {
+	      $errors[$field['field_name']][$langcode][$delta][] = array(
+	        'error' => 'mathwork_square_invalid',
+		    'message' => t($instance['label'] . ' must be integer value.'),
+	      );
+	    }
+        else if($item['math_square'] > 999) {
+	      $errors[$field['field_name']][$langcode][$delta][] = array(
+	        'error' => 'mathwork_square_invalid',
+		    'message' => t($instance['label'] . ' must be less than 1000.'),
+	      );
+	    }
+	  }
+	}
+    else if(isset($item['math_fact'])) {
+	  if($item['math_fact'] != ''){
+        if(! preg_match('@^[0-9]+$@', $item['math_fact'])) {
+	      $errors[$field['field_name']][$langcode][$delta][] = array(
+	        'error' => 'mathwork_fact_invalid',
+		    'message' => t($instance['label'] . ' must be integer value.'),
+	      );
+	    }
+        else if($item['math_fact'] > 99) {
+	      $errors[$field['field_name']][$langcode][$delta][] = array(
+	        'error' => 'mathwork_fact_invalid',
+		    'message' => t($instance['label'] . ' must be less than 100.'),
+	      );
+	    }
+	  }
+	}
+  }
+}
+
+
+
+
+/**
+ * Implements hook_field_is_empty().
+ */
+function mathwork_field_is_empty($item, $field) {
+  switch ($field['type']) {
+    case 'math_square':
+      return empty($item['math_square']);
+      break;
+    case 'math_fact':
+      return empty($item['math_fact']);
+      break;
+  }
+}
+
+/***********************************************************************
+ *  Field Type API: Formatter
+ **********************************************************************/
+ 
+/**
+ * Implements hook_field_formatter_info().
+ */
+function mathwork_field_formatter_info() {
+  return array(
+    'math_squareformat' => array(
+      'label' => t('Default'),
+      'field types' => array('math_square'),
+    ),
+    'math_factformat' => array(
+      'label' => t('Default'),
+      'field types' => array('math_fact'),
+    ),
+  );
+}
+ 
+/**
+ * Implements hook_field_formatter_view().
+ */
+function mathwork_field_formatter_view($object_type, $object, $field, $instance, $langcode, $items, $display) {
+  $element = array();
+  
+  if($display['type']=='math_squareformat') {
+      foreach ($items as $delta => $item) {
+	    $output = $item['math_square'] * $item['math_square'];
+        $element[$delta] = '<p>' . $output . '</p>';
+      }
+  }
+  if($display['type']=='math_factformat') {
+      foreach ($items as $delta => $item) {
+	    $output = factorial($item['math_fact']);
+        $element[$delta] = '<p>' . $output . '</p>';
+      }
+  }
+  return $element;
+}
+
+function factorial($input){
+  $output = 1;
+  for($x = $input; $x >= 1; $x--){
+    $output *= $x;
+  }
+  return($output);
+}
+/**************************************************************************
+ * Field Type API: Widget
+ **************************************************************************/
+ 
+/**
+ * Implements hook_field_widget_info().
+ */
+function mathwork_field_widget_info() {
+  return array(
+    'math_squarefield' => array(
+	  'label' => t('Text field'),
+	  'field types' => array('math_square'),
+      'settings' => array('size' => 60),
+	),
+    'math_factfield' => array(
+	  'label' => t('Text field'),
+	  'field types' => array('math_fact'),
+      'settings' => array('size' => 60),
+	),
+  );
+}
+
+/**
+ * Implements hook_field_widget_settings_form().
+ */
+function mathwork_field_widget_settings_form($field, $instance) {
+  $widget = $instance['widget'];
+  $settings = $widget['settings'];
+
+    $form['size'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Size of textfield'),
+      '#default_value' => $settings['size'],
+      '#required' => TRUE,
+      '#element_validate' => array('_element_validate_integer_positive'),
+    );
+
+  return $form;
+}
+
+
+/**
+ * Implements hook_field_widget_form().
+ */
+function mathwork_field_widget_form(&$form, &$form_state, $field, $instance, $langcode, $items, $delta, $base) {
+  $element = $base;
+  switch ($instance['widget']['type']) {
+    case 'math_squarefield':
+      $element['math_square'] = $base + array(
+        '#type' => 'textfield',
+        '#default_value' => isset($items[$delta]['math_square']) ? $items[$delta]['math_square'] : NULL,
+        '#size' => $instance['widget']['settings']['size'],
+      );
+      break;
+    case 'math_factfield':
+      $element['math_fact'] = $base + array(
+        '#type' => 'textfield',
+        '#default_value' => isset($items[$delta]['math_fact']) ? $items[$delta]['math_fact'] : NULL,
+        '#size' => $instance['widget']['settings']['size'],
+      );
+      break;
+  }
+  return $element;
+}
+
+
+/**
+ * Implements hook_field_widget_error().
+ */
+function mathwork_field_widget_error($element, $error) {
+  switch ($error['error']) {
+    case 'mathwork_square_invalid':
+      form_error($element['math_square'], $error['message']);
+	  break;
+    case 'mathwork_fact_invalid':
+      form_error($element['math_fact'], $error['message']);
+	  break;
+  }
+}

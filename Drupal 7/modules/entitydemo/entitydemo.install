@@ -1,0 +1,40 @@
+<?php
+/**
+ * Implements hook_schema().
+ */
+function entitydemo_schema(){
+    $schema = array();
+    
+    $schema['demo_projects'] = array(
+        'description' => 'The base table for the project entity',
+        'fields' => array(
+            'id' => array(
+                'description' => 'Primary key for the project entity',
+                'type' => 'serial',
+                'unsigned' => TRUE,
+                'not null' => TRUE,
+            ),
+            'name' => array(
+               'description' => 'Project name.',
+               'type' => 'varchar',
+               'length' => 255,
+               'not null' => FALSE, 
+            ),
+            'description' => array(
+                'description' => 'Project description.',
+                'type' => 'text',
+                'size' => 'big',
+                'not null' => FALSE,
+                'default' => NULL
+            ),
+            'deadline' => array(
+                'description' => 'Project deadline.',
+                'type' => 'int',
+                'length' => 11,
+                'not null' => FALSE,
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+    return $schema;
+}

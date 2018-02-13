@@ -1,0 +1,106 @@
+<?php
+/**
+ * Implement hook_node_info().
+ */
+function entityquery_node_info(){
+    return array(
+      'product' => array(
+        'name' => t('Product'),
+        'base' => 'product',
+        'description' => t('You can define new Products here'),
+        'has_title' => TRUE,
+        'title_label' => t('Product Title'),
+      ),
+      'movies' => array(
+        'name' => t('Movies'),
+        'base' => 'movies',
+        'description' => t('You can define new Movies here'),
+        'has_title' => TRUE,
+        'title_label' => t('Movie title'),  
+      ),
+      'books' => array(
+          'name' => t('Books'),
+          'base' => 'book',
+          'description' => t('You can define new Books here'),
+          'has_title' => TRUE,
+          'title_label' => t('Book title'),
+      )  
+    );
+}
+/**
+ * Implement hook_form()
+ */
+function product_form($node, $form_state){
+    return node_content_form($node, $form_state);
+}
+
+/**
+ * Implement hook_form()
+ */
+function movies_form($node, $form_state){
+    return node_content_form($node, $form_state);
+}
+/*
+ * Implement hook_form()
+ */
+function book_form($node, $form_state){
+    return node_content_form($node, $form_state);
+}
+
+/**
+ * Implement hook_block_info().
+ */
+function entityquery_block_info(){
+    $blocks = array();
+    
+    $blocks['entityqueryblock'] = array(
+        'info' => t('A block to display results from entityquery'),
+    );
+    
+    return $blocks;
+}
+
+function entityquery_block_view($block_name = ''){
+    if($block_name == 'entityqueryblock'){
+        $content = '';
+        
+        $query = new EntityFieldQuery();
+        $query->entityCondition('entity_type', 'node');
+        $query->entityCondition('bundle', array('product', 'movies'))->propertyCondition('status', 1)
+                // If we want the products and movies which have “one” in their body, arranged in descending order of their creation, the query will 
+                // be as follows:
+              ->fieldCondition('body', 'value', 'one', 'CONTAINS')
+              ->propertyOrderBy('created', 'DESC');
+        
+        $result = $query->execute();
+        $nodes = array();
+        if(isset($result['node'])){
+            $nids = array_keys($result['node']);
+            $nodes = node_load_multiple($nids);
+        }
+        
+        $list = array();
+        foreach($nodes as $node){
+           $options = array('absolute' => TRUE); 
+           $url = url('node/'.$node->nid, $options);
+           $list[] = '<a href='.$url.'>'.$node->title.'</a>';
+        }
+        
+        $theme_args = array('items' => $list, 'type' => 'ol');
+        $content = theme('item_list', $theme_args);
+        
+        $block = array(
+          'subject' => t('A block to display results from entitiquery'),
+          'content' => $content,  
+        );
+        return $block;
+    }
+}
+
+class ActiveUsersEntityFieldQuery extends EntityFieldQuery{
+    public function __construct(){
+        $this->entityCondition('entity_type', 'user')
+             ->propertyCondition('status', 1)
+             ->propertyOrderBy('created', 'ASC');
+    }
+}

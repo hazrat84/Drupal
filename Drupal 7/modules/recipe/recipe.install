@@ -1,0 +1,42 @@
+<?php
+/**
+ * Implements hook_install().
+ */
+function recipe_install(){
+    return recipe_install_vocabularies();
+}
+
+function recipe_install_vocabularies(){
+    $vocabularies = array(
+        array(
+          'name' => 'Cuisine',
+          'machine_name' => 'cuisine',
+          'description' => 'Contains terms representing different cuisines.', 
+        ),
+        array(
+            'name' => 'Difficulty',
+            'machine_name' => 'difficulty',
+            'description' => 'Contains terms representing difficulty levels.',
+        ),
+    );
+    
+    foreach($vocabularies as $vdata){
+        // Make sure we're not overwriting existing vocabularies
+        $v = taxonomy_vocabulary_machine_name_load($vdata['machine_name']);
+        if($v && taxonomy_vocabulary_save((object) $vdata) == FALSE){
+            // We got a problem
+            return $vdata['machine_name'];
+        }
+    }
+    
+    return FALSE;
+}
+
+/**
+ * Install default vocabularies introduced in 7.x-2.x
+ */
+function recipe_update_7200(&$sandbox){
+    if($machine_name == recipe_install_vocabularies()){
+        throw new DrupalUpdateException('Error occured when attemting to create vocabulary:'. $machine_name);
+    }
+}
